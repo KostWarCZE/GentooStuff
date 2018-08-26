@@ -1,0 +1,2 @@
+# GentooStuff
+Stuff for GEntoo
