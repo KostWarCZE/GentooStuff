@@ -1,0 +1,23 @@
+## This profile is used to emerge Flameshot only from gig overlay in Layman
+## Made by David Košecký (https://github.com/KostWarCZE)
+## Should be parsed in /etc/portage/package.mask/custom
+## Make sure that you do not mast a package that you need!
+
+# gig masked unwanted programs
+app-emulation/crossover
+app-misc/bat
+dev-python/docker-pycreds
+dev-python/python-potr
+dev-python/soundcloud-python
+dev-python/wget
+media-gfx/colorpicker
+media-sound/netease-cloud-music
+media-sound/scdl
+net-proxy/frp-bin
+net-proxy/trojan
+net-proxy/v2ray
+net-proxy/simple-obfs
+x11-libs/vte
+x11-misc/i3lock-color
+x11-terms/termite
+x11-wm/i3-gaps
