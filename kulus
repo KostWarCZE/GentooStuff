@@ -1,0 +1,47 @@
+#!/bin/bash
+                                                 
+
+# KREY'S UNIVERSAL LINUX UPDATE SCRIPT 
+# VERSION: WORK IN PROGRESS
+# LICENCE: GPL-2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
+# Made by: Kreyren (https://github.com/Kreyren)
+
+### NOTES ####
+# root == ($UID == 0) // user == ($UID == 1000)
+# [[]] != [].. WHY 
+# For future krey.. DO A 10 FINGER TESTS EVERYDAY IDIOT
+# Using uname -rv is more effective to grep hashtag to identify distro, ubuntu is #37
+
+# INTRO
+echo '   __ ____  ____   __  ______'
+echo '  / //_/ / / / /  / / / / __/'
+echo ' / ,< / /_/ / /__/ /_/ /\ \  '
+echo '/_/|_|\____/____/\____/___/  ' 
+echo '							   '
+
+### UPDATE GENTOO ###
+GENTOO_UPGRADE="emerge -uDNj @world"
+
+# INVOKED FROM ROOT
+if [[ $(uname -r) == *-gentoo ]] && [ $UID == 0 ]; then 
+	echo "Invoking $GENTOO_UPGRADE from root user."
+	sleep 2
+	$GENTOO_UPGRADE
+
+	# INVOKED FROM NON-ROOT WITH SUDO
+	elif [[ $(uname -r) == *-gentoo ]] && [ $UID != 0 ] && [[ -f "/usr/bin/sudo" ]]; then
+		echo "Invoking sudo $GENTOO_UPGRADE from $USER."
+		sleep 2
+		sudo $GENTOO_UPGRADE
+
+	# INVOKED FROM USER WITHOUT PERMISSION TO USE PORTAGE
+	elif [[ $(uname -r) == *-gentoo ]] && [ $UID != 0 ] && [[ ! -f "/usr/bin/sudo" ]]; then
+		echo "$USER doesn't have the permission to use portage, logging as root."
+		sleep 2
+		su
+fi
+
+# UPDATE ARCH GNU/LINUX
+
+# UPDATE DEBIAN-BASED
+
