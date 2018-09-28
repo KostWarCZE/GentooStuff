@@ -26,28 +26,28 @@ GENTOO_UPGRADE="emerge -uDNj @world"
 
 # INVOKED FROM ROOT
 if [[ -x /usr/bin/emerge ]] || [[ -x /bin/emerge ]] && [ $UID == 0 ]; then 
-	echo "Invoking '$GENTOO_UPGRADE' from root user."
+	echo -e "\e[1;32mKULUS:\e[0m Invoking '$GENTOO_UPGRADE' from root user."
 	sleep 2
 	$GENTOO_UPGRADE
-	echo "Invoking emerge --depclean."
+	echo -e "\e[1;32mKULUS:\e[0m Invoking emerge --depclean."
 	sleep 2
 	emerge --depclean
-	echo "KULUS finished."
+	echo -e "\e[1;32mKULUS:\e[0m finished."
 
 	# INVOKED FROM NON-ROOT WITH SUDO
 	elif [[ -x /usr/bin/emerge ]] || [[ -x /bin/emerge ]] && [ $UID != 0 ] && [[ -f "/usr/bin/sudo" ]]; then
-		echo "KULUS: Invoking sudo '$GENTOO_UPGRADE' from $USER."
+		echo -e "\e[1;32mKULUS:\e[0m Invoking sudo '$GENTOO_UPGRADE' from $USER."
 		sleep 2
 		sudo $GENTOO_UPGRADE
-		echo "KULUS: Invoking emerge --depclean."
+		echo -e "\e[1;32mKULUS:\e[0m Invoking emerge --depclean."
 		sleep 2
 		emerge --depclean
-		echo "KULUS: Finished."
+		echo -e "\e[1;32mKULUS:\e[0m Finished."
 
 	# INVOKED FROM USER WITHOUT PERMISSION TO USE PORTAGE
 	elif [[ -x /usr/bin/emerge ]] || [[ -x /bin/emerge ]] && [ $UID != 0 ] && [[ ! -f "/usr/bin/sudo" ]]; then
 		# Check if the user is in portage dir?
-		echo "KULUS: $USER doesn't have the permission to use portage, logging as root."
+		echo -e "\e[1;32mKULUS:\e[0m $USER doesn't have the permission to use portage, logging as root."
 		sleep 2
 		su
 		#Invoke the script in root once password is typed in?
@@ -61,80 +61,106 @@ ARCH_UPDATE="pacman -Suy"
 
 # INVOKED FROM ROOT
 if [[ -x /usr/bin/pacman ]] || [[ -x /bin/pacman ]] && [ $UID == 0 ]; then 
-	echo "KULUS: Invoking '$ARCH_UPGRADE' from root user."
+	echo -e "\e[1;32mKULUS:\e[0m Invoking '$ARCH_UPGRADE' from root user."
 	sleep 2
 	$ARCH_UPGRADE
-	echo "KULUS: Finished."
+	echo -e "\e[1;32mKULUS:\e[0m Finished."
 
 	# INVOKED FROM NON-ROOT WITH SUDO
 	elif [[ -x /usr/bin/pacman ]] || [[ -x /bin/pacman ]] && [ $UID != 0 ] && [[ -f "/usr/bin/sudo" ]]; then
-		echo "KULUS: Invoking sudo '$ARCH_UPGRADE' from $USER."
+		echo -e "\e[1;32mKULUS:\e[0m Invoking sudo '$ARCH_UPGRADE' from $USER."
 		sleep 2
 		sudo $ARCH_UPGRADE
-		echo "KULUS: Finished."
+		echo -e "\e[1;32mKULUS:\e[0m Finished."
 
 	# INVOKED FROM USER WITHOUT PERMISSION TO USE PACMAN
 	elif [[ -x /usr/bin/pacman ]] || [[ -x /bin/pacman ]] && [ $UID != 0 ] && [[ ! -f "/usr/bin/sudo" ]]; then
 		# Check if the user is in portage dir?
-		echo "KULUS: $USER doesn't have the permission to use pacman, logging as root."
+		echo -e "\e[1;32mKULUS:\e[0m $USER doesn't have the permission to use pacman, logging as root."
 		sleep 2
 		su
 		#Invoke the script in root once password is typed in?
 fi
 
-# TODO - UPDATE DEBIAN
+### UPDATE DEBIAN ###
+# Some user.deb should test this..
 DEBIAN_UPDATE="apt-get update upgrade dist-upgrade -y"
 
 # INVOKED FROM ROOT
 if [[ -x /usr/bin/apt ]] || [[ -x /bin/apt ]] && [ $UID == 0 ]; then 
-	echo "KULUS: Invoking '$DEBIAN_UPGRADE' from root user."
+	echo -e "\e[1;32mKULUS:\e[0m Invoking '$DEBIAN_UPGRADE' from root user."
 	sleep 2
 	$DEBIAN_UPGRADE
-	echo "KULUS: Finished."
+	echo -e "\e[1;32mKULUS:\e[0m Finished."
 
 	# INVOKED FROM NON-ROOT WITH SUDO
 	elif [[ -x /usr/bin/apt ]] || [[ -x /bin/apt ]] && [ $UID != 0 ] && [[ -f "/usr/bin/sudo" ]]; then
-		echo "KULUS: Invoking sudo '$DEBIAN_UPGRADE' from $USER."
+		echo -e "\e[1;32mKULUS:\e[0m Invoking sudo '$DEBIAN_UPGRADE' from $USER."
 		sleep 2
 		sudo $DEBIAN_UPGRADE
-		echo "KULUS: Finished."
+		echo -e "\e[1;32mKULUS:\e[0m Finished."
 
 	# INVOKED FROM USER WITHOUT PERMISSION TO USE APT
 	elif [[ -x /usr/bin/apt ]] || [[ -x /bin/apt ]] && [ $UID != 0 ] && [[ ! -f "/usr/bin/sudo" ]]; then
 		# Check if the user is in portage dir?
-		echo "KULUS: $USER doesn't have the permission to use apt, logging as root."
+		echo -e "\e[1;32mKULUS:\e[0m $USER doesn't have the permission to use apt, logging as root."
 		sleep 2
 		su
 		#Invoke the script in root once password is typed in?
 fi
 
-# TODO - UPDATE UBUNTU
+### UPDATE UBUNTU ###
+# Some noob should test this..
 UBUNTU_UPDATE="apt-get update upgrade dist-upgrade -y"
 
 # INVOKED FROM ROOT
 if [[ -x /usr/bin/apt ]] || [[ -x /bin/apt ]] && [ $UID == 0 ]; then 
-	echo "KULUS: Invoking '$UBUNTU_UPGRADE' from root user."
+	echo -e "\e[1;32mKULUS:\e[0m Invoking '$UBUNTU_UPGRADE' from root user."
 	sleep 2
 	$UBUNTU_UPGRADE
-	echo "KULUS: Finished."
+	echo -e "\e[1;32mKULUS:\e[0m Finished."
 
 	# INVOKED FROM NON-ROOT WITH SUDO
 	elif [[ -x /usr/bin/apt ]] || [[ -x /bin/apt ]] && [ $UID != 0 ] && [[ -f "/usr/bin/sudo" ]]; then
-		echo "KULUS: Invoking sudo '$UBUNTU_UPGRADE' from $USER."
+		echo -e "\e[1;32mKULUS:\e[0m Invoking sudo '$UBUNTU_UPGRADE' from $USER."
 		sleep 2
 		sudo $UBUNTU_UPGRADE
-		echo "KULUS: Finished."
+		echo -e "\e[1;32mKULUS:\e[0m Finished."
 
 	# INVOKED FROM USER WITHOUT PERMISSION TO USE APT
 	elif [[ -x /usr/bin/apt ]] || [[ -x /bin/apt ]] && [ $UID != 0 ] && [[ ! -f "/usr/bin/sudo" ]]; then
 		# Check if the user is in portage dir?
-		echo "KULUS: $USER doesn't have the permission to use apt, logging as root."
+		echo -e "\e[1;32mKULUS:\e[0m $USER doesn't have the permission to use apt, logging as root."
 		sleep 2
 		su
 		#Invoke the script in root once password is typed in?
 fi
 
-# TODO - UPDATE FEDORA
+### UPDATE FEDORA ###
+# Some Fedoran should test this..
+FEDORA_UPDATE="%%"
+
+if [[ -x /usr/bin/dnf ]] || [[ -x /bin/dnf ]] && [ $UID == 0 ]; then 
+	echo -e "\e[1;32mKULUS:\e[0m Invoking '$UBUNTU_UPGRADE' from root user."
+	sleep 2
+	$UBUNTU_UPGRADE
+	echo -e "\e[1;32mKULUS:\e[0m Finished."
+
+	# INVOKED FROM NON-ROOT WITH SUDO
+	elif [[ -x /usr/bin/apt ]] || [[ -x /bin/apt ]] && [ $UID != 0 ] && [[ -f "/usr/bin/sudo" ]]; then
+		echo -e "\e[1;32mKULUS:\e[0m Invoking sudo '$UBUNTU_UPGRADE' from $USER."
+		sleep 2
+		sudo $UBUNTU_UPGRADE
+		echo -e "\e[1;32mKULUS:\e[0m Finished."
+
+	# INVOKED FROM USER WITHOUT PERMISSION TO USE APT
+	elif [[ -x /usr/bin/apt ]] || [[ -x /bin/apt ]] && [ $UID != 0 ] && [[ ! -f "/usr/bin/sudo" ]]; then
+		# Check if the user is in portage dir?
+		echo -e "\e[1;32mKULUS:\e[0m $USER doesn't have the permission to use apt, logging as root."
+		sleep 2
+		su
+		#Invoke the script in root once password is typed in?
+fi
 
 # TODO - UPDATE WHATEVER
 
