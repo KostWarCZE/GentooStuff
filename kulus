@@ -9,6 +9,7 @@
 # root == ($UID == 0) // user == ($UID == 1000)
 # [[]] != [].. WHY 
 # For future krey.. DO A 10 FINGER TESTS EVERYDAY IDIOT
+# http://wiki.bash-hackers.org/howto/getopts_tutorial
 
 # INTRO
 echo '   __ ____  ____   __  ______'
@@ -17,13 +18,18 @@ echo ' / ,< / /_/ / /__/ /_/ /\ \  '
 echo '/_/|_|\____/____/\____/___/  ' 
 echo '							   '
 
-# TODO - SET VARIABLES FOR KULUS IF ARGUMENT IS USED?
-# http://wiki.bash-hackers.org/howto/getopts_tutorial
+## VARIABLES
+GENTOO_UPGRADE="emerge -uDNj @world"
+ARCH_UPDATE="pacman -Suy"
+DEBIAN_UPDATE="apt-get update upgrade dist-upgrade -y"
+UBUNTU_UPDATE="apt-get update upgrade dist-upgrade -y"
+FEDORA_UPDATE="dnf upgrade -y"
+
+# If two or more are detected ask user to chose?
+
+## TODO - Update kernel on variable
 
 ### UPDATE GENTOO ###
-GENTOO_UPGRADE="emerge -uDNj @world"
-# Set the /usr/bin/emerge to be changable by then user on demand for those with specialized systems.
-
 # INVOKED FROM ROOT
 if [[ -x /usr/bin/emerge ]] || [[ -x /bin/emerge ]] && [ $UID == 0 ]; then 
 	echo -e "\e[1;32mKULUS:\e[0m Invoking '$GENTOO_UPGRADE' from root user."
@@ -32,7 +38,7 @@ if [[ -x /usr/bin/emerge ]] || [[ -x /bin/emerge ]] && [ $UID == 0 ]; then
 	echo -e "\e[1;32mKULUS:\e[0m Invoking emerge --depclean."
 	sleep 2
 	emerge --depclean
-	echo -e "\e[1;32mKULUS:\e[0m finished."
+	echo -e "\e[1;32mKULUS:\e[0m Finished update."
 
 	# INVOKED FROM NON-ROOT WITH SUDO
 	elif [[ -x /usr/bin/emerge ]] || [[ -x /bin/emerge ]] && [ $UID != 0 ] && [[ -f "/usr/bin/sudo" ]]; then
@@ -42,11 +48,10 @@ if [[ -x /usr/bin/emerge ]] || [[ -x /bin/emerge ]] && [ $UID == 0 ]; then
 		echo -e "\e[1;32mKULUS:\e[0m Invoking emerge --depclean."
 		sleep 2
 		emerge --depclean
-		echo -e "\e[1;32mKULUS:\e[0m Finished."
+		echo -e "\e[1;32mKULUS:\e[0m Finished update."
 
 	# INVOKED FROM USER WITHOUT PERMISSION TO USE PORTAGE
 	elif [[ -x /usr/bin/emerge ]] || [[ -x /bin/emerge ]] && [ $UID != 0 ] && [[ ! -f "/usr/bin/sudo" ]]; then
-		# Check if the user is in portage dir?
 		echo -e "\e[1;32mKULUS:\e[0m $USER doesn't have the permission to use portage, logging as root."
 		sleep 2
 		su
@@ -57,21 +62,20 @@ fi
 
 ### UPDATE ARCH GNU/LINUX ###
 # Some ARCHer should test it..
-ARCH_UPDATE="pacman -Suy"
 
 # INVOKED FROM ROOT
 if [[ -x /usr/bin/pacman ]] || [[ -x /bin/pacman ]] && [ $UID == 0 ]; then 
 	echo -e "\e[1;32mKULUS:\e[0m Invoking '$ARCH_UPGRADE' from root user."
 	sleep 2
 	$ARCH_UPGRADE
-	echo -e "\e[1;32mKULUS:\e[0m Finished."
+	echo -e "\e[1;32mKULUS:\e[0m Finished update."
 
 	# INVOKED FROM NON-ROOT WITH SUDO
 	elif [[ -x /usr/bin/pacman ]] || [[ -x /bin/pacman ]] && [ $UID != 0 ] && [[ -f "/usr/bin/sudo" ]]; then
 		echo -e "\e[1;32mKULUS:\e[0m Invoking sudo '$ARCH_UPGRADE' from $USER."
 		sleep 2
 		sudo $ARCH_UPGRADE
-		echo -e "\e[1;32mKULUS:\e[0m Finished."
+		echo -e "\e[1;32mKULUS:\e[0m Finished update."
 
 	# INVOKED FROM USER WITHOUT PERMISSION TO USE PACMAN
 	elif [[ -x /usr/bin/pacman ]] || [[ -x /bin/pacman ]] && [ $UID != 0 ] && [[ ! -f "/usr/bin/sudo" ]]; then
@@ -84,21 +88,20 @@ fi
 
 ### UPDATE DEBIAN ###
 # Some user.deb should test this..
-DEBIAN_UPDATE="apt-get update upgrade dist-upgrade -y"
 
 # INVOKED FROM ROOT
 if [[ -x /usr/bin/apt ]] || [[ -x /bin/apt ]] && [ $UID == 0 ]; then 
 	echo -e "\e[1;32mKULUS:\e[0m Invoking '$DEBIAN_UPGRADE' from root user."
 	sleep 2
 	$DEBIAN_UPGRADE
-	echo -e "\e[1;32mKULUS:\e[0m Finished."
+	echo -e "\e[1;32mKULUS:\e[0m Finished update."
 
 	# INVOKED FROM NON-ROOT WITH SUDO
 	elif [[ -x /usr/bin/apt ]] || [[ -x /bin/apt ]] && [ $UID != 0 ] && [[ -f "/usr/bin/sudo" ]]; then
 		echo -e "\e[1;32mKULUS:\e[0m Invoking sudo '$DEBIAN_UPGRADE' from $USER."
 		sleep 2
 		sudo $DEBIAN_UPGRADE
-		echo -e "\e[1;32mKULUS:\e[0m Finished."
+		echo -e "\e[1;32mKULUS:\e[0m Finished update."
 
 	# INVOKED FROM USER WITHOUT PERMISSION TO USE APT
 	elif [[ -x /usr/bin/apt ]] || [[ -x /bin/apt ]] && [ $UID != 0 ] && [[ ! -f "/usr/bin/sudo" ]]; then
@@ -111,21 +114,20 @@ fi
 
 ### UPDATE UBUNTU ###
 # Some noob should test this..
-UBUNTU_UPDATE="apt-get update upgrade dist-upgrade -y"
 
 # INVOKED FROM ROOT
 if [[ -x /usr/bin/apt ]] || [[ -x /bin/apt ]] && [ $UID == 0 ]; then 
 	echo -e "\e[1;32mKULUS:\e[0m Invoking '$UBUNTU_UPGRADE' from root user."
 	sleep 2
 	$UBUNTU_UPGRADE
-	echo -e "\e[1;32mKULUS:\e[0m Finished."
+	echo -e "\e[1;32mKULUS:\e[0m Finished update."
 
 	# INVOKED FROM NON-ROOT WITH SUDO
 	elif [[ -x /usr/bin/apt ]] || [[ -x /bin/apt ]] && [ $UID != 0 ] && [[ -f "/usr/bin/sudo" ]]; then
 		echo -e "\e[1;32mKULUS:\e[0m Invoking sudo '$UBUNTU_UPGRADE' from $USER."
 		sleep 2
 		sudo $UBUNTU_UPGRADE
-		echo -e "\e[1;32mKULUS:\e[0m Finished."
+		echo -e "\e[1;32mKULUS:\e[0m Finished update."
 
 	# INVOKED FROM USER WITHOUT PERMISSION TO USE APT
 	elif [[ -x /usr/bin/apt ]] || [[ -x /bin/apt ]] && [ $UID != 0 ] && [[ ! -f "/usr/bin/sudo" ]]; then
@@ -138,20 +140,19 @@ fi
 
 ### UPDATE FEDORA ###
 # Some Fedoran should test this..
-FEDORA_UPDATE="%%"
 
 if [[ -x /usr/bin/dnf ]] || [[ -x /bin/dnf ]] && [ $UID == 0 ]; then 
 	echo -e "\e[1;32mKULUS:\e[0m Invoking '$UBUNTU_UPGRADE' from root user."
 	sleep 2
 	$UBUNTU_UPGRADE
-	echo -e "\e[1;32mKULUS:\e[0m Finished."
+	echo -e "\e[1;32mKULUS:\e[0m Finished update."
 
 	# INVOKED FROM NON-ROOT WITH SUDO
 	elif [[ -x /usr/bin/apt ]] || [[ -x /bin/apt ]] && [ $UID != 0 ] && [[ -f "/usr/bin/sudo" ]]; then
 		echo -e "\e[1;32mKULUS:\e[0m Invoking sudo '$UBUNTU_UPGRADE' from $USER."
 		sleep 2
 		sudo $UBUNTU_UPGRADE
-		echo -e "\e[1;32mKULUS:\e[0m Finished."
+		echo -e "\e[1;32mKULUS:\e[0m Finished update."
 
 	# INVOKED FROM USER WITHOUT PERMISSION TO USE APT
 	elif [[ -x /usr/bin/apt ]] || [[ -x /bin/apt ]] && [ $UID != 0 ] && [[ ! -f "/usr/bin/sudo" ]]; then
@@ -164,4 +165,23 @@ fi
 
 # TODO - UPDATE WHATEVER
 
+# Updating eix-update for repository update from shell if present.
+if [[ -x /usr/bin/eix-update ]]; then
+	echo -e "\e[1;32mKULUS:\e[0m Invoking eix-update from $USER."
+	sleep 2
+	eix-update
+	sleep 2
+	echo -e "\e[1;32mKULUS:\e[0m eix-update finished."
+fi
+
+# Invoke updatedb to update file indexing if present.
+if [[ -x /usr/bin/updatedb ]]; then
+	echo -e "\e[1;32mKULUS:\e[0m Invoking updatedb from $USER."
+	sleep 2
+	updatedb
+	sleep 2
+	echo -e "\e[1;32mKULUS:\e[0m updatedb finished."
+fi
+
 # TODO - REMOVE IFSELF IF INVOKED FROM WINDOWS/MACOS AND TELL THE USER THAT IT'S A MONSTER.
+
