@@ -1,0 +1,74 @@
+## COMPILER STUFF ##
+COMMON_FLAGS="-O2 -march=sandybridge -mtune=generic -pipe"
+CFLAGS="${COMMON_FLAGS}"
+CXXFLAGS="${COMMON_FLAGS}"
+FCFLAGS="${COMMON_FLAGS}"
+FFLAGS="${COMMON_FLAGS}"
+LDFLAGS="-Wl,-O1 -Wl,--as-needed"
+CHOST="x86_64-pc-linux-gnu"
+MAKEOPTS="-j8 -s"
+
+## PORTAGE FEATURES ##
+FEATURES="parallel-fetch protect-owned -candy buildpkg compressdebug splitdebug"
+EMERGE_DEFAULT_OPTS="${EMERGE_DEFAULT_OPTS} --getbinpkg --rebuilt-binaries --autounmask-write"
+
+## SYSTEM LANGUAGES ##
+LINGUAS="en en_US"
+L10N="en en-US"
+
+## USE FLAGS ##
+SYSTEM_USE="X systemd"
+CODECS_USE=""
+MEDIA_USE=""
+IMAGE_USE=""
+TOOLKIT_USE=""
+NETWORK_USE="ipv6"
+SOUND_USE="alsa pulseaudio gstreamer"
+DONT_USE=""
+
+USE="${SYSTEM_USE} ${CODECS_USE} ${MEDIA_USE} ${IMAGE_USE} ${TOOLKIT_USE} ${NETWORK_USE} ${SOUND_USE} ${DONT_USE}"
+
+## DEVICES ##
+INPUT_DEVICES="evdev synaptics"
+VIDEO_CARDS="amdgpu radeonsi"
+LIRC_DEVICES=""
+
+## OFFICE ##
+#LIBREOFFICE_EXTENSIONS="presenter-console presenter-minimizer pdfimport"
+
+## QEMU ##
+#QEMU_USER_TARGETS="x86_64 i386"
+#QEMU_SOFTMMU_TARGETS="x86_64 i386"
+
+## MIRRORS ##
+GENTOO_MIRRORS="https://mirror.dkm.cz/gentoo/"
+
+## PYTHON TARGETS ##
+#USE_PYTHON="2.7 3.4 3.5"
+#PYTHON_TARGETS="python2_7 python3_4 python3_5"
+#PYTHON_SINGLE_TARGET="python3_5"
+
+## RUBY TARGETS ##
+#UBY_TARGETS="ruby22 ruby23"
+
+## GRUB PLATFORMS ##
+GRUB_PLATFORMS="efi-64 pc"
+
+## DRACUT MODULES ##
+#DRACUT_MODULES="biosdevname bootchart btrfs caps cifs crypt crypt-gpg crypt-loop dash dmraid dmsquash-live gensplash iscsi livenet lvm mdraid multipath nbd nfs plymouth ssh-client syslog systemd"
+
+## ABI SUPPORT ##
+#ABI_X86="64 32"
+
+# LLVM_TARGET
+LLVM_TARGETS="AMDGPU"
+
+# Set PORTDIR for backward compatibility with various tools:
+#   gentoo-bashcomp - bug #478444
+#   euse - bug #474574
+#   euses and ufed - bug #478318
+PORTDIR="/usr/portage"
+PKGDIR="/usr/portage/packages"
+DISTDIR="/usr/portage/distfiles"
+
+CONFIG_PROTECT="/etc/localtime /etc/default/grub /etc/grub.d/10_linux"
