@@ -4,13 +4,14 @@ CFLAGS="${COMMON_FLAGS}"
 CXXFLAGS="${COMMON_FLAGS}"
 FCFLAGS="${COMMON_FLAGS}"
 FFLAGS="${COMMON_FLAGS}"
-LDFLAGS="-Wl,-O1 -Wl,--as-needed"
 CHOST="x86_64-pc-linux-gnu"
+CXXFLAGS="${CFLAGS}"
+LDFLAGS="-Wl,-O1 -Wl,--as-needed"
 MAKEOPTS="-j8 -s"
 
 ## PORTAGE FEATURES ##
-FEATURES="parallel-fetch protect-owned candy compressdebug splitdebug"
-EMERGE_DEFAULT_OPTS="${EMERGE_DEFAULT_OPTS} --getbinpkgonly --rebuilt-binaries"
+FEATURES="parallel-fetch protect-owned candy buildpkg compressdebug splitdebug"
+EMERGE_DEFAULT_OPTS="${EMERGE_DEFAULT_OPTS} --getbinpkg --rebuilt-binaries --autounmask-write --jobs"
 
 ## SYSTEM LANGUAGES ##
 LINGUAS="en en_US en_GB uk ro_RO ro"
@@ -24,9 +25,10 @@ IMAGE_USE="jpeg jpeg2k png apng mng tiff gif svg pdf"
 TOOLKIT_USE="gtk gtk3 gnome gnome-keyring qt3support qt5"
 NETWORK_USE="ipv6 avahi zeroconf"
 SOUND_USE="alsa pulseaudio gstreamer ffmpeg openal"
+GRAPHICS_USE="vulkan"
 DONT_USE="-bindist -kde -qt4 -connman -networkmanager -modemmanager -libav -tracker -mysql -consolekit -openrc -sysvinit -branding -handbook -hunspell"
 
-USE="${SYSTEM_USE} ${CODECS_USE} ${MEDIA_USE} ${IMAGE_USE} ${TOOLKIT_USE} ${NETWORK_USE} ${SOUND_USE} ${DONT_USE}"
+USE="${SYSTEM_USE} ${CODECS_USE} ${MEDIA_USE} ${IMAGE_USE} ${TOOLKIT_USE} ${NETWORK_USE} ${SOUND_USE} ${GRAPHICS_USE} ${DONT_USE}"
 
 ## DEVICES ##
 INPUT_DEVICES="evdev synaptics"
@@ -58,7 +60,7 @@ GRUB_PLATFORMS="efi-64 pc"
 DRACUT_MODULES="biosdevname bootchart btrfs caps cifs crypt crypt-gpg crypt-loop dash dmraid dmsquash-live gensplash iscsi livenet lvm mdraid multipath nbd nfs plymouth ssh-client syslog systemd"
 
 ## ABI SUPPORT ##
-ABI_X86="64 32"
+ABI_X86="64"
 
 # LLVM_TARGET
 LLVM_TARGETS="AMDGPU BPF NVPTX X86 AArch64 ARM"
