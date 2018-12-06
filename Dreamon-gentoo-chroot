@@ -1,0 +1,47 @@
+#!/bin/bash
+# Gentoo is mounted on /dev/sda6
+
+if [[ $UID == 0 ]]; then
+	echo "something" 2&> /dev/null
+	#No need to bother with "wow you are roooot!!"
+
+	elif [[ -x "$(command -v sudo)" ]]; then
+		echo "Failed to aquire root permission, trying using sudo."
+		sudo $0 "$@"
+
+		#TODO: Add sudo alternatives
+
+	elif [[ ! -x "$(command -v sudo)" ]]; then
+		echo "Failed to aquire root permission, trying using su."
+		su -c "$0 $@"
+
+fi
+
+
+if [[ ! -f /media/$USER/GENTOO/etc/portage ]] && [[ ! -f /mnt/gentoo ]]; then
+	mkdir -p /mnt/gentoo 
+	mount /dev/sda6 /mnt/gentoo
+	mount --types proc /proc /mnt/gentoo/proc
+	mount --rbind /sys /mnt/gentoo/sys
+	mount --make-rslave /mnt/gentoo/sys
+	mount --rbind /dev /mnt/gentoo/dev
+	mount --make-rslave /mnt/gentoo/dev
+	chroot /mnt/gentoo /bin/bash
+
+	elif [[ -f /media/$USER/GENTOO/etc/portage ]]; then
+		mount --types proc /proc /media/kreyren/GENTOO/proc
+		mount --rbind /sys /media/kreyren/GENTOO/sys
+		mount --make-rslave /media/kreyren/GENTOO/sys
+		mount --rbind /dev /media/kreyren/GENTOO/dev
+		mount --make-rslave /media/kreyren/GENTOO/dev
+		chroot /media/kreyren/GENTOO /bin/bash
+
+	elif [[ -f /media/kreyren/GENTOO/etc/portage ]]; then
+		mount /dev/sda6 /mnt/gentoo
+		mount --types proc /proc /mnt/gentoo/proc
+		mount --rbind /sys /mnt/gentoo/sys
+		mount --make-rslave /mnt/gentoo/sys
+		mount --rbind /dev /mnt/gentoo/dev
+		mount --make-rslave /mnt/gentoo/dev
+		chroot /mnt/gentoo /bin/bash
+fi
