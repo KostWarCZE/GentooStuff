@@ -36,7 +36,7 @@ if [[ ! -f /media/$USER/GENTOO/etc/portage ]] && [[ ! -f /mnt/gentoo ]]; then
 		mount --make-rslave /media/kreyren/GENTOO/dev
 		chroot /media/kreyren/GENTOO /bin/bash
 
-	elif [[ -f /media/kreyren/GENTOO/etc/portage ]]; then
+	elif [[ -f /media/$USER/GENTOO/etc/portage ]]; then
 		mount /dev/sda6 /mnt/gentoo
 		mount --types proc /proc /mnt/gentoo/proc
 		mount --rbind /sys /mnt/gentoo/sys
