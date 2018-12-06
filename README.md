@@ -1,2 +1,2 @@
 # GentooStuff
-Stuff for GEntoo
+Stuff for Gentoo
