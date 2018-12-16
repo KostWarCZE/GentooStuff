@@ -3,6 +3,7 @@
 
 # TODO: OS detection
 # TODO: make mount commands shorter
+# TODO: Log function
 
 if [[ $UID == 0 ]]; then
 	echo "something" 2&> /dev/null
