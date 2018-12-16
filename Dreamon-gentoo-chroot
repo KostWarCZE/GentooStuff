@@ -2,6 +2,7 @@
 # Gentoo is mounted on /dev/sda6
 
 # TODO: OS detection
+# TODO: make mount commands shorter
 
 if [[ $UID == 0 ]]; then
 	echo "something" 2&> /dev/null
