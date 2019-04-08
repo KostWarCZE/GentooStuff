@@ -16,12 +16,25 @@ if [[ $- != *i* ]] ; then
 fi
 
 # Put your fun stuff here
-
-## Data under this comment are lincenced under GPLv2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html) for github.com/kreyren ##
+## Data under this comment are licenced under GPLv2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html) for github.com/kreyren ##
 
 ## FUCK integration
 eval $(thefuck --alias fu)
-PATH="$PATH:$HOME/.local/bin"
+
+## Setxkbmap integration
+change_keyboard_layout () {
+	if [[ -x $(command -v setxkbmap) ]]; then
+		if [[ $(setxkbmap -print | grep -o "pc+us") == "pc+us" ]]; then
+			setxkbmap cz
+
+		elif [[ $(setxkbmap -print | grep -o "pc+cz") == "pc+cz" ]]; then
+				setxkbmap us
+		fi
+
+		else
+			echo "ERROR: Command setxkbmap is not executable."
+	fi
+}
 
 # Notes
 ## PathName = Directories+Files
@@ -34,13 +47,18 @@ ix ()
 
 # Scaling
 if [[ $(xrandr | grep -o "HDMI-A-0 connected primary 5760x3240") == "HDMI-A-0 connected primary 5760x3240" ]]; then
-	export GDK_SCALE=2 
+	export GDK_SCALE=2
 	export GDK_DPI_SCALE=0.8
 fi
+
+export GDK_SCALE=2
+export GDK_DPI_SCALE=0.8
 
 # Export vars
 export PHOENICIS_DIR="/home/$USER/GIT/kreyrenicis"
 #export JAVA_HOME="/usr/lib64/openjdk-11"
+#export JAVA_HOME="/opt/openjdk-bin-11.0.2_p7"
+export JAVA_HOME=""
 export PHOENICIS_SCRIPT_DIR="/usr/phoenicis/scripts"
 export TEAMSPEAK3DIR="/opt/TeamSpeak3"
 export FUNTOO_DIR="/mnt/funtoo"
@@ -49,7 +67,11 @@ export PATH="$HOME/bin:$PATH"
 # CHrooterOfKreys integration
 export GENTOO_CHROOT="/dev/sdb6"
 export LFS_CHROOT="/dev/sdb4"
-# File manager slection stub
+export CFLAGS="-O2 -march=sandybridge -pipe" # Optimization for `make`
+export GPGID="werifgx@gmail.com" # Sign compiled sources
+export LC_ALL="en_US.UTF-8" # Set locales
+export BROWSER="firefox"
+PATH="$PATH:$HOME/.local/bin"
 
 # Custom commands
 ## Copy Path Name
@@ -63,6 +85,13 @@ alias update="update --full-update"
 alias emerge-dev="emerge --ignore-default-opts"
 # alias lol-test="sudo rm -r /home/$USER/games/leagueoflegends ; sudo rm -r /var/tmp/portage/games-emulation/leagueoflegends* ; sudo rm -r /opt/games/leagueoflegends ; cd /usr/portage/games-emulation/leagueoflegends/ && ebuild leagueoflegends-4933455.ebuild digest && emerge leagueoflegends"
 # alias leagueoflegends="DXVK_STATE_CACHE='/tmp/dishonored' DXVK_HUD='devinfo,fps,frametimes,drawcalls,pipelines,memory,version' WINEDEBUG='-all' WINEPREFIX='/opt/games/leagueoflegends' wine /opt/games/leagueoflegends/drive_c/Riot\ Games/League\ of\ Legends/LeagueClient.exe"
+alias xclip="xclip -selection c"
+
+# TEMP: VORGEX INTEGRATION
+if [[ -e "/home/kreyren/.local/share/vortex" ]]; then
+	alias vortex="env WINEPREFIX='/home/kreyren/.local/share/vortex' wine /home/kreyren/.local/share/vortex/drive_c/Program\ Files/Black\ Tree\ Gaming\ Ltd/Vortex/Vortex.exe"
+	echo "FIXME: VORTEX, TEMPORARY!"
+fi
 
 # SXIV itegration
 if [[ -x "$(command -v sxiv)" ]]; then
@@ -83,8 +112,8 @@ if [[ -x "$(command -v sudo)" ]]; then
 	alias Qtest="sudo qemu-system-x86_64 -snapshot /dev/sdb"
 	alias mount="sudo mount"
 	alias umount="sudo umount"
-	alias mkdir="sudo mkdir"
 	alias chmod="sudo chmod"
+	alias cp="sudo cp"
 
 	## Enoch Merge
 	if [[ -x $(command -v emerge) ]]; then
