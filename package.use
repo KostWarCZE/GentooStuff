@@ -1,0 +1,221 @@
+sys-apps/net-tools hostname # Optional for kenel compilation
+sys-apps/kmod tools # Required for virtual/modutils that is dependency for packages
+app-admin/sudo gcrypt offensive pam secure-path system-digest
+## system-digest - Use message digest functions from dev-libs/libgcrypt, dev-libs/libressl or dev-libs/openssl instead of sudo's internal SHA2 implementation
+## offensive - Make it swear if wrong pw is parsed
+## gcrypt - Use message digest functions from dev-libs/libgcrypt instead of sudo's
+## pam - Pluggable Authentification Modules support
+dev-lang/python xml # Required for some python packages
+net-misc/dhcpcd ipv6 # To use ipv6 which is used (?)
+dev-util/glib-utils python_single_target_python3_6
+sys-kernel/gentoo-sources experimental # Adds optimization for CPU ARCH
+media-libs/mesa dri3 llvm gallium
+x11-libs/gtk+ X
+x11-libs/cairo X svg
+sys-libs/zlib minizip # required by media-video/vlc-3.0.6-r1:0/5-9::gentoo
+sys-devel/llvm libffi # since libffi is used?
+dev-vcs/git curl # required by cairo
+media-libs/harfbuzz glib truetype
+sys-apps/dbus X # Required for steam
+net-irc/hexchat gtk # to use GUI, TEMPORARY!!!
+mail-client/mutt gpg crypt pop smtp sasl
+## sasl requested smtp
+## DESCRIPTION
+=x11-libs/cairo-9999 X svg aqua glib
+dev-cpp/cairomm X svg aqua
+dev-lang/python ncurses sqlite # required by spidermonkey
+x11-libs/libxcb xkb # required by qtgui, libxkbcommon
+app-text/xmlto text # required by xdg-utils
+media-libs/mesa opencl # required by virtual/opencl
+=x11-libs/cairo-9999:0/0::gentoo -X -svg
+sys-libs/ncurses tinfo
+
+
+## 32 bit
+>=virtual/libiconv-0-r1 abi_x86_32
+>=virtual/libffi-3.0.13-r1 abi_x86_32
+virtual/libintl abi_x86_32
+sys-libs/zlib abi_x86_32
+>=dev-libs/expat-2.1.0-r3 abi_x86_32
+x11-libs/libX11 abi_x86_32 static-libs # for libX11
+# static-libs = attempt to resolve segfault -> Failed
+dev-libs/glib abi_x86_32 # required by cairo, pango and harfbuzz
+media-libs/fontconfig abi_x86_32 # required by cairo, libXft and pango
+x11-libs/libXft abi_x86_32 # required by pango
+x11-libs/libXext abi_x86_32 # required by cairo, libXrandr, LibXxf86vm and libXft
+x11-libs/libxcb abi_x86_32 # required by libX11 and mesa
+dev-libs/libpthread-stubs # required by libxcb
+x11-libs/libXau abi_x86_32 # required by libxcb
+x11-libs/libXfixes abi_x86_32 # required by libXdamage
+dev-libs/gmp abi_x86_32 # required by nettle
+dev-libs/elfutils abi_x86_32 # required by libelf
+x11-base/xcb-proto abi_x86_32 # required by libxcb
+media-libs/harfbuzz abi_x86_32 # requred by pango
+media-libs/freetype abi_x86_32 # required by pango, cairo, fontconfig, harfbuzz, libXft
+media-libs/libpng abi_x86_32 # required by cairo
+dev-libs/fribidi abi_x86_32 # required by pango
+x11-libs/libXrender abi_x86_32 # required by pango, libxft, cairo, libXrandr
+media-libs/sdl2-image abi_x86_32 # Required for The Witcher 2, mby
+#sys-libs/binutils-libs abi_x86_32 # Required for steam with -steamruntime, mby
+sys-apps/util-linux abi_x86_32
+sys-apps/dbus abi_x86_32
+x11-libs/libXcursor abi_x86_32 # required by wine-staging
+dev-livs/libxml2 abi_x86_32 # required by libxslt
+dev-libs/libtasn1 abi_x86_32 # required by gnutls
+dev-libs/libunistring abi_x86_32 # required by gnutls
+media-libs/libsndfile abi_x86_32 # required by pulseaudio
+media-libs/flac abi_x86_32 # required by libsndfile
+media-libs/libogg abi_x86_32 # required by libsndfile and libvorbis
+media-libs/libvorbis abi_x86_32 # required by libsndfile
+sys-fs/eudev abi_x86_32 # required by libudev
+media-libs/glu abi_x86_32 # required by virtul/glu
+media-libs/libjpeg-turbo abi_x86_32 # required by virtual/jpeg
+virtual/pkgconfig abi_x86_32 # required by fribidi
+
+
+## JAVA
+dev-java/openjdk-bin gentoo-vm
+
+## FIREFOX
+www-client/firefox clang custom-optimization hwaccel lto system-harfbuzz system-icu system-jpeg system-libevent system-libvpx system-sqlite pulseaudio
+## clag - Based on https://www.phoronix.com/scan.php?page=article&item=power9-gcc-clang&num=2 is saner then GCC
+## custom-optimization - dunno if provided is saner since mine is not using fast-math
+## hwaccel - Force Hardware accelaration -> Should improve performance?
+### Affected by Mozilla Bug #594876
+## lto - Enable Link Time Optimization
+### Sounds sane to use
+## system-harfbuzz - Seems sane assuming that system is using harfbuzz
+## system-icu - Seems sane assuming that system is using icu
+## system-jpeg - Seems sane assuming that system is using media-libs/libjpeg-turbo
+## system-libeavent - Seems sane assuming that system is using dev-libs/libeavent
+## system-libvpx - Seems sane assuming that system is using media-libs/libvpx
+## system-sqlite - Seems sane assuming that system is using dev-db/sqlite
+### DEPS
+# required by www-client/firefox-66.0-r1::gentoo[system-libvpx]
+# required by firefox (argument)
+=media-libs/libvpx-1.7.0 postproc
+# required by www-client/firefox-66.0-r1::gentoo[system-sqlite]
+# required by firefox (argument)
+>=dev-db/sqlite-3.27.2 secure-delete
+# required by www-client/firefox-66.0-r1::gentoo[clang]
+# required by firefox (argument)
+>=sys-devel/llvm-8.0.0 gold
+dev-lang/python ncurses sqlite # required by firefox,
+media-libs/libpng apng
+
+## Torrent
+net-p2p/qbittorrent X
+dev-qt/qtgui xcb
+
+## WINE
+app-emulation/wine-staging X opengl esync mono -openal opencl osmesa pulseaudio realtime run-exes udev vulkan vkd3d -oss xcomposite truetype abi_x86_32 fontconfig jpeg png mp3 sdl2 sound xml
+## openal - Not supported by AMD7870
+## oss osadd s - Open Sound System
+## mono = for mono stuff
+### Outputs unsupported on this system?
+## truetype - required by X
+>=media-sound/pulseaudio-5 glib # Required by wine with 32-bit
+media-libs/libsdl2 sound video
+x11-libs/libXi abi_x86_32
+media-libs/mesa osmesa abi_x86_32
+media-sound/pulseaudio abi_x86_32
+net-libs/gnutls abi_x86_32
+x11-libs/libXcomposite abi_x86_32
+dev-livs/libxml2 abi_x86_32
+dev-libs/libxslt abi_x86_32
+virtual/jpeg abi_x86_32
+virtual/libudev abi_x86_32 # required by libsdl2
+virtual/glu abi_x86_32
+dev-libs/libxml2 abi_x86_32 # required by libxslt
+media-libs/alsa-lib abi_x86_32 # required by libsdl
+
+## OpenGL
+>=media-libs/mesa-18 egl gbm # Requested by mesa
+media-libs/mesa abi_x86_32 # For 32-bit OpenGL apps
+x11-libs/libXdamage abi_x86_32
+x11-libs/libXxf86vm abi_x86_32
+x11-libs/libXext abi_x86_32
+x11-libs/libXfixes abi_x86_32
+x11-libs/libXrandr abi_x86_32
+virtual/libelf abi_x86_32
+>=sys-devel/llvm-7.0.1 abi_x86_32
+x11-libs/libxshmfence abi_x86_32
+x11-libs/libdrm abi_x86_32
+x11-libs/libXdmcp abi_x86_32
+
+## VULKAN
+dev-util/vulkan-tools X vulkaninfo
+media-libs/vulkan-loader abi_x86_32 X layers
+# abi_x86_32 - for wine and 32-bit apps
+# X - seems sane
+# layers - seems sane
+media-libs/vulkan-layers X
+## Because i'm losing my mind fuck you username234
+### DEPS
+>=media-libs/vulkan-layers-1.1.101 abi_x86_32
+>=dev-util/glslang-7.10.2984 abi_x86_32
+>=dev-util/spirv-tools-2019.1-r1 abi_x86_32
+x11-libs/libXrandr abi_x86_32 # required by vulkan-layers and vulkan-loader
+
+## VLC
+media-video/vlc gcrypt xml X bluray chromecast dts encode faad matroska mp3 mpeg mtp pulseaudio qt5 x265 x264 a52
+
+## AUDIO
+>=dev-cpp/gtkmm-3.0 X # Required for pavucontrol
+
+## XORG
+x11-base/xorg-server glamor suid xorg
+>=x11-libs/libdrm-2.4.89 video_cards_radeon
+
+## OpenBox
+x11-libs/pango curl X
+# x11-wm/openbox xdg # To add config files
+### Commented out since required files are already grabbed in ~/.config
+
+## Layman
+app-portage/layman git # required to fetch git repositories
+
+## STEAM
+games-util/steam-launcher steamruntime # fuck runtime, breaking me stuff
+## Breaks Rocket League, too lazy to resolve atm
+#net-misc/networkmanager nss ncurses
+# sys-libs/ncurses tinfo
+#sys-libs/readline abi_x86_32
+## ncurses temp
+
+x11-libs/libva X
+### 32-BIT
+virtual/opengl abi_x86_32
+
+## GENKERNEL
+sys-apps/util-linux python suid static-libs
+# static-libs - mandatory for genkernel
+# python - it has +- 3% of python
+# suid - probably required assuming that it's building initramfs
+sys-kernel/genkernel firmware
+# firmware - maybe required?
+app-arch/cpio nls
+# nls - may be mandatory?
+
+## VIRTUALBOX
+app-emulation/virtualbox qt5 opengl pulseaudio
+
+## TOOLCHAIN
+sys-devel/gcc multilib openmp
+## openmp added based on https://bugs.gentoo.org/680802
+sys-libs/glibc multiarch multilib suid
+sys-devel/binutils multitarget gold plugins
+## gold+plugins - required for cxx
+dev-libs/boehm abi_x86_32 # Required for GCC with objc-gc useflag
+sys-apps/devianutils installkernel # To install vmlinuz in /boot
+#sys-libs/binutils-libs multitarget # seems important
+sys-libs/readline utils # may be required for networkmanager (steam-launcher)
+dev-libs/libffi abi_x86_32
+app-editors/nano ncurses
+
+## KPATCH
+sys-kernel/kpatch modules # to build modules
+virtual/linux-sources firmware # to build firmware i think
+
+## DEEPIN-SCREEN-RECORDER
+media-gfx/deepin-screen-recorder gif
